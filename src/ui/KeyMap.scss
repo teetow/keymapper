@@ -1,0 +1,83 @@
+@use "../style/tokens";
+@use "sass:color";
+
+.km-keymap {
+  --keysize: 1em;
+  align-items: center;
+  display: grid;
+  font-size: 1em;
+  gap: 4px;
+  grid-template-columns: repeat(48, var(--keysize));
+  grid-template-rows: repeat(14, var(--keysize));
+  margin: 0 auto;
+  padding: 0 3em;
+  place-items: stretch;
+  user-select: none;
+
+  @media (max-width: 1050px) {
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 720px) {
+    font-size: 0.6em;
+  }
+
+  .km-key {
+    --keycolspan: 1;
+    --keyrowspan: 1;
+    grid-column: span calc(var(--keycolspan) * 2);
+    grid-row: span calc(var(--keyrowspan) * 2);
+  }
+
+  .km-key--enter {
+    background-color: transparent;
+    border-width: 0;
+    position: relative;
+    overflow: visible;
+
+    &:after {
+      --lw: 33%;
+      background-color: var(--bg);
+      border-radius: 0.5em;
+      border: 1px solid tokens.$color-accent;
+      box-sizing: border-box;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, var(--lw) 100%, var(--lw) 50%, 0 50%);
+      content: "";
+      height: 200%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
+
+.km-key {
+  --bg: #{color.adjust(tokens.$color-accent, $alpha: -0.8)};
+  color: white;
+  display: grid;
+  line-height: 0.8em;
+  overflow: hidden;
+  place-items: center;
+  text-overflow: ellipsis;
+  white-space: pre;
+
+  &--is-key {
+    background-color: var(--bg);
+    border-radius: 0.5em;
+    border: 1px solid tokens.$color-accent;
+  }
+}
+
+.km-currentkeys {
+  background-color: color.adjust(tokens.$color-blue, $alpha: -0.8em);
+  border-radius: 0.5em;
+  border: 1px solid tokens.$color-blue;
+  display: grid;
+  font-size: 1.3em;
+  font-weight: bold;
+  justify-self: center;
+  min-width: 4em;
+  padding: 1em;
+  place-items: center;
+}

@@ -1,0 +1,9 @@
+@use "style/tokens";
+
+.App {
+  background-color: tokens.$color-bg;
+  display: grid;
+  color: tokens.$color-fg;
+  gap: 2em;
+  font-family: sans-serif;
+}

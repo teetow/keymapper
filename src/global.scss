@@ -1,0 +1,8 @@
+@use "style/tokens";
+
+body {
+  background-color: tokens.$color-bg;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}

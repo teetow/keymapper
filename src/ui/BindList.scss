@@ -1,0 +1,31 @@
+.km-bindlist {
+  display: grid;
+  margin: 3em;
+  grid-auto-columns: min-content;
+  grid-template-areas: "key function";
+  gap: 1em;
+}
+
+.km-bind {
+  display: contents;
+
+  &__key {
+    width: 3em;
+    display: grid;
+    grid-template-areas: "main";
+
+    & > * {
+      grid-area: main;
+    }
+
+    &:after {
+      content: "";
+      padding-top: 100%;
+      pointer-events: none;
+      grid-area: main;
+    }
+  }
+
+  &__function {
+  }
+}

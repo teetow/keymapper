@@ -1,0 +1,6 @@
+@use "./tokens";
+
+@mixin draw-border($color: tokens.$color-accent-strong) {
+  border: 2px solid tokens.$color-accent-strong;
+  border-radius: 4px;
+}
