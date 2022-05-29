@@ -1,20 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import keys, { KeyIndex } from "../lib/keys";
+import keynames, { KeyIndex } from "../lib/keys";
 
 const modifiers = ["Ctrl", "Alt", "Shift"];
 const specialKeys: Partial<Record<KeyIndex, Record<number, KeyIndex>>> = {
-  enter: { 0: "enter", 3: "numpad_enter" },
+  Enter: { 0: "Enter", 3: "NumpadEnter" },
+};
+
+const ambiguousKeys: Partial<Record<KeyIndex, Record<"key" | "actualKey", KeyIndex>>> = {
+  NumLock: { key: "Pause", actualKey: "NumLock" },
 };
 
 const disambiguateKey = (e: KeyboardEvent) => {
   if (e === undefined) return "";
-  if (e.key.toLocaleLowerCase() in specialKeys) {
-    return (specialKeys[e.key.toLocaleLowerCase() as KeyIndex] || {})[e.location] as KeyIndex;
+
+  if (e.code !== e.key) {
+    if (e.code in ambiguousKeys) {
+      return ambiguousKeys[e.code as KeyIndex]?.actualKey as KeyIndex;
+    }
   }
-  return e.key.toLocaleLowerCase() as KeyIndex;
+
+  if (e.code in specialKeys) {
+    return specialKeys[e.code as KeyIndex]![e.location];
+  }
+  return e.code as KeyIndex;
 };
 
-const hasKey = (keyCode: string) => Object.keys(keys).findIndex((k) => k === keyCode.toLocaleLowerCase()) > -1;
+const hasKey = (keyCode: string) => Object.keys(keynames).findIndex((k) => k === keyCode.toLocaleLowerCase()) > -1;
 
 const useActiveKeys = (element: HTMLElement) => {
   const ref = useRef<HTMLElement>(element);

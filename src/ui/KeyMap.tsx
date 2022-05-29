@@ -1,60 +1,22 @@
-import classNames from "classnames";
-import { CSSProperties, FunctionComponent, PropsWithChildren } from "react";
+import { FunctionComponent } from "react";
 import { BindMap } from "../lib/Bind";
-import keys, { KeyIndex, keyOrder } from "../lib/keys";
-import "./KeyMap.scss";
+import keynames, { KeyIndex, keyOrder } from "../lib/keys";
+import { styled } from "../stitches.config";
+import { Key } from "./Key";
 
-type KeyProps = PropsWithChildren<{
-  keycode: string;
-  hasHilight?: boolean;
-  hasBind?: boolean;
-}>;
-
-const keySizes: Record<string, { c: number; r: number }> = {
-  add: { c: 1, r: 2 },
-  numpad_0: { c: 2, r: 1 },
-  numpad_enter: { c: 1, r: 2 },
-
-  enter: { c: 1.5, r: 1 },
-  tab: { c: 1.5, r: 1 },
-
-  backspace: { c: 2, r: 1 },
-  caps_lock: { c: 2, r: 1 },
-  alt: { c: 1.5, r: 1 },
-  alt_right: { c: 1.5, r: 1 },
-  ctrl: { c: 1.5, r: 1 },
-  control_right: { c: 1.5, r: 1 },
-  space: { c: 6, r: 1 },
-
-  shift: { c: 1.5, r: 1 },
-  shift_right: { c: 2.5, r: 1 },
-};
-
-export const Key: FunctionComponent<KeyProps> = ({
-  keycode,
-  hasHilight = false,
-  hasBind = false,
-  children,
-}: KeyProps) => {
-  const keyStyle = {
-    "--keycolspan": keySizes[keycode]?.c || 1,
-    "--keyrowspan": keySizes[keycode]?.r || 1,
-  } as CSSProperties;
-
-  const classes = classNames({
-    "km-key": true,
-    "km-key--is-key": keycode !== "",
-    "km-key--has-hilight": hasHilight,
-    "km-key--has-bind": hasBind,
-    [`km-key--${keycode}`]: keycode !== "",
-  });
-
-  return (
-    <div className={classes} data-keycode={keycode} style={keyStyle}>
-      {children}
-    </div>
-  );
-};
+const KeyMapView = styled("div", {
+  "--keysize": "1em",
+  alignItems: "center",
+  display: "grid",
+  fontSize: "1em",
+  gap: "4px",
+  gridTemplateColumns: "repeat(48, var(--keysize))",
+  gridTemplateRows: "repeat(14, var(--keysize))",
+  margin: "0 auto",
+  padding: "0 3em",
+  placeItems: "stretch",
+  userSelect: "none",
+});
 
 type Props = {
   binds: BindMap;
@@ -62,17 +24,15 @@ type Props = {
   onSetBinds: (binds: BindMap) => void;
 };
 
-const KeyMap: FunctionComponent<Props> = ({ binds, activeKeys, onSetBinds }) => {
+const KeyMap: FunctionComponent<Props> = ({ binds, activeKeys }) => {
   return (
-    <>
-      <div className="km-keymap">
-        {keyOrder.map((k, i) => (
-          <Key key={`${k}-${i}`} keycode={k} hasHilight={binds.has(k)}>
-            {keys[k].caption}
-          </Key>
-        ))}
-      </div>
-    </>
+    <KeyMapView>
+      {keyOrder.map((k, i) => (
+        <Key key={`${k}-${i}`} keycode={k} hasBind={binds.some((b) => b.key === k)} hasHilight={activeKeys.includes(k)}>
+          {keynames[k].caption || ""}
+        </Key>
+      ))}
+    </KeyMapView>
   );
 };
 
