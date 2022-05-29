@@ -36,13 +36,17 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
   theme: {
     colors: { ...themeColors, ...themeColorAliases },
     fontSizes: {
-      lg: "1.3rem",
-      md: "1rem",
-      sm: ".75rem",
+      lg: "1.2em",
+      md: "1em",
+      sm: ".85em",
+      xs: ".66em",
     },
     sizes: {},
     space: {
       lg: "2em",
+      md: "1em",
+      sm: "0.5em",
+      xs: "0.25em",
     },
     radii: {
       dot25: "0.25em",

@@ -5,14 +5,13 @@ import { styled } from "../stitches.config";
 const KeyView = styled("div", {
   "--bg": `$colors$purple200`,
   "--fg": "$colors$primaryText",
-  color: "var(--fg)",
-
+  "--bc": "$colors$purple300",
   "--keycolspan": 1,
   "--keyrowspan": 1,
+  color: "var(--fg)",
+  display: "grid",
   gridColumn: "span calc(var(--keycolspan) * 2)",
   gridRow: "span calc(var(--keyrowspan) * 2)",
-
-  display: "grid",
   gridTemplateAreas: "main",
   lineHeight: "0.8em",
   overflow: "hidden",
@@ -26,46 +25,54 @@ const KeyView = styled("div", {
       true: {
         "--fg": "white",
         "--bg": "$colors$blue300",
+        "--bc": "$colors$blue400",
       },
     },
     hasHilight: {
       true: {
-        "--bg": "$colors$purple600",
+        "--bg": "$colors$purple400",
       },
     },
     isKey: {
       true: {
         backgroundColor: "var(--bg)",
         borderRadius: "$dot25",
-        border: "1px solid $accent",
+        border: "1px solid var(--bc)",
+      },
+    },
+    hasSmallText: {
+      true: {
+        fontSize: "$xs",
       },
     },
   },
-  compoundVariants: [{
-    hasBind: true,
-    hasHilight: true,
-    css: {
-      "--bg": "$colors$blue400",
-    }
-  }],
+  compoundVariants: [
+    {
+      hasBind: true,
+      hasHilight: true,
+      css: {
+        "--bg": "$colors$blue400",
+        "--bc": "$colors$blue600",
+      },
+    },
+  ],
   "&[data-keycode='Enter']": {
-    backgroundColor: "transparent",
-    borderWidth: 0,
+    borderRadius: "$dot25 $dot25 0 $dot25",
     position: "relative",
     overflow: "visible",
     "&:after": {
       "--lw": "34%",
       backgroundColor: "var(--bg)",
-      borderRadius: "$dot25",
-      border: "1px solid $accent",
+      border: "1px solid var(--bc)",
+      borderRadius: "0 0 $dot25 $dot25",
+      borderWidth: "0 1px 1px 1px",
       boxSizing: "border-box",
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, var(--lw) 100%, var(--lw) 50%, 0 50%)",
       content: "",
-      height: "calc(200% + $radii$dot25)",
+      height: "calc(100% + ($space$xs * 2) - 1px)",
       position: "absolute",
       right: "-1px",
-      top: 0,
-      width: "calc(100% + 1px)",
+      top: "calc(100%)",
+      width: "calc(75% - $space$xs)",
     },
   },
 });
@@ -108,7 +115,14 @@ export const Key: FunctionComponent<KeyProps> = ({
   } as CSSProperties;
 
   return (
-    <KeyView hasBind={hasBind} hasHilight={hasHilight} isKey={keycode !== ""} data-keycode={keycode} style={keyStyle}>
+    <KeyView
+      hasBind={hasBind}
+      hasHilight={hasHilight}
+      isKey={keycode !== ""}
+      data-keycode={keycode}
+      style={keyStyle}
+      hasSmallText={children!.toString().length > 3}
+    >
       {children}
     </KeyView>
   );

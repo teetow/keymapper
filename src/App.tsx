@@ -15,6 +15,7 @@ const globalStyles = globalCss({
     backgroundColor: "$appBg",
     height: "100vh",
     padding: "$lg 0",
+    fontSize: "17px",
     margin: 0,
   },
 });
