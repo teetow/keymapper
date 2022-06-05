@@ -1,6 +1,7 @@
 {
   "name": "keymapper",
   "version": "0.1.0",
+  "homepage: "https://teetow.github.io/keymapper/",
   "private": true,
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
