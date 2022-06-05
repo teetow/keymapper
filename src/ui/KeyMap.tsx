@@ -5,7 +5,7 @@ import { styled } from "../stitches.config";
 import { Key } from "./Key";
 
 const KeyMapView = styled("div", {
-  "--keysize": "1em",
+  "--keysize": "1rem",
   alignItems: "center",
   display: "grid",
   fontSize: "$sm",
@@ -13,7 +13,7 @@ const KeyMapView = styled("div", {
   gridTemplateColumns: "repeat(48, var(--keysize))",
   gridTemplateRows: "repeat(14, var(--keysize))",
   margin: "0 auto",
-  padding: "0 3em",
+  padding: "0 3rem",
   placeItems: "stretch",
   userSelect: "none",
 });
@@ -28,7 +28,14 @@ const KeyMap: FunctionComponent<Props> = ({ binds, activeKeys }) => {
   return (
     <KeyMapView>
       {keyOrder.map((k, i) => (
-        <Key key={`${k}-${i}`} keycode={k} hasBind={binds.some((b) => b.key === k)} hasHilight={activeKeys.includes(k)}>
+        <Key
+          key={`${k}-${i}`}
+          keycode={k}
+          hasBind={binds.some((b) => b.key === k)}
+          hasHilight={activeKeys.includes(k)}
+          isKey={k !== ""}
+          shape={k === "Enter" ? "enter" : "rect"}
+        >
           {keynames[k].caption || ""}
         </Key>
       ))}

@@ -1,18 +1,30 @@
-import { styled } from "../stitches.config";
 import React from "react";
-
-import { Bind, BindMap, getBindHash } from "../lib/Bind";
+import { BindMap, getBindHash } from "../lib/Bind";
 import keynames, { KeyIndex } from "../lib/keys";
+import { styled } from "../stitches.config";
+import { Box } from "./Box";
 import { Key } from "./Key";
 
 const BindListView = styled("div", {
   display: "grid",
-  margin: "3em",
-  gridAutoColumns: "min-content",
-  gridTemplateAreas: "key function",
+  margin: "3rem",
+  gridTemplateColumns: "auto 1fr",
+  gap: "$lg",
 });
 
-const BindView = styled("div", { width: "3em", display: "grid", gridTemplateAreas: "main" });
+const BindKey = ({ children, ...props }: React.ComponentProps<typeof Key>) => (
+  <Key
+    {...props}
+    css={{
+      "--keycolspan": "0.5",
+      "--keyrowspan": "0.5",
+      width: "3rem",
+      height: "3rem",
+    }}
+  >
+    {children}
+  </Key>
+);
 
 type Props = {
   activeKeys: KeyIndex[];
@@ -20,32 +32,27 @@ type Props = {
   onSetBinds: React.Dispatch<React.SetStateAction<BindMap>>;
 };
 
-const BindKey = ({ bind, hasHilight }: { bind: Bind; hasHilight?: boolean }) => (
-  <BindView>
-    {bind.mods?.map((mod) => (
-      <div className="km-bind__mods" key={mod}>
-        <Key keycode={mod}>
-          {keynames[mod].caption}
-        </Key>
-      </div>
-    ))}
-    <Key keycode={bind.key} hasBind={hasHilight}>
-      <span>{keynames[bind.key].caption}</span>
-    </Key>
-  </BindView>
-);
-
 const BindList = ({ binds, activeKeys }: Props) => {
   return (
     <BindListView>
       {[...binds.entries()].map(([index, bind]) => {
         return (
-          <div className="km-bind" key={getBindHash(bind)}>
-            <span className="km-bind__key">
-              <BindKey bind={bind} hasHilight={activeKeys.includes(bind.key)} />
-            </span>
-            <span className="km-bind__function">{bind.function}</span>
-          </div>
+          <Box className="bind" key={getBindHash(bind)} css={{ display: "contents" }}>
+            <Box css={{ gridColumn: "1 / 2", display: "flex" }} className="mods">
+              {bind.mods?.map((mod) => (
+                <BindKey key={mod} keycode={mod} isKey={true} className="bindkey">
+                  {keynames[mod].caption}
+                </BindKey>
+              ))}
+
+              <BindKey className="key" keycode={bind.key} hasBind={activeKeys.includes(bind.key)} isKey={true}>
+                <span>{keynames[bind.key].caption}</span>
+              </BindKey>
+            </Box>
+            <Box className="function" css={{ gridColumn: "2/3" }}>
+              {bind.function}
+            </Box>
+          </Box>
         );
       })}
     </BindListView>

@@ -1,43 +1,47 @@
-import { CSSProperties, FunctionComponent, PropsWithChildren } from "react";
+import { CSS } from "@stitches/react";
+import React, { FunctionComponent, PropsWithChildren } from "react";
 import { KeyIndex } from "../lib/keys";
 import { styled } from "../stitches.config";
 
 const KeyView = styled("div", {
-  "--bg": `$colors$purple200`,
-  "--fg": "$colors$primaryText",
-  "--bc": "$colors$purple300",
-  "--keycolspan": 1,
-  "--keyrowspan": 1,
-  color: "var(--fg)",
+  $$keyViewBg: `$colors$primaryBg`,
+  $$keyViewBorderColor: "$colors$primaryAcc",
+  $$keyViewFg: "$colors$primaryText",
+  $$keyViewColSpan: 1,
+  $$keyViewRowSpan: 1,
+  color: "$$keyViewFg",
   display: "grid",
-  gridColumn: "span calc(var(--keycolspan) * 2)",
-  gridRow: "span calc(var(--keyrowspan) * 2)",
-  gridTemplateAreas: "main",
+  gridColumn: "span calc($$keyViewColSpan * 2)",
+  gridRow: "span calc($$keyViewRowSpan * 2)",
   lineHeight: "0.8em",
   overflow: "hidden",
   placeItems: "center",
   textOverflow: "ellipsis",
   whiteSpace: "pre",
 
-  "& > *": { gridArea: "main" },
   variants: {
+    shape: {
+      square: {},
+      rect: {},
+      enter: {},
+    },
     hasBind: {
       true: {
-        "--fg": "white",
-        "--bg": "$colors$blue300",
-        "--bc": "$colors$blue400",
+        $$keyViewBg: "$colors$secondaryBg",
+        $$keyViewBorderColor: "$colors$secondaryAcc",
+        $$keyViewFg: "$colors$secondaryText",
       },
     },
     hasHilight: {
       true: {
-        "--bg": "$colors$purple400",
+        $$keyViewBg: "$colors$primaryBgHover",
       },
     },
     isKey: {
       true: {
-        backgroundColor: "var(--bg)",
+        backgroundColor: "$$keyViewBg",
         borderRadius: "$dot25",
-        border: "1px solid var(--bc)",
+        border: "1px solid $$keyViewBorderColor",
       },
     },
     hasSmallText: {
@@ -51,37 +55,47 @@ const KeyView = styled("div", {
       hasBind: true,
       hasHilight: true,
       css: {
-        "--bg": "$colors$blue400",
-        "--bc": "$colors$blue600",
+        $$keyViewBg: "$colors$secondaryBgHover",
+        $$keyViewBorderColor: "$colors$secondaryAcc",
+      },
+    },
+    {
+      isKey: true,
+      shape: "enter",
+      css: {
+        borderRadius: "$dot25 $dot25 0 $dot25",
+        position: "relative",
+        overflow: "visible",
+        "&:after": {
+          "--lw": "34%",
+          backgroundColor: "$$keyViewBg",
+          border: "1px solid $$keyViewBorderColor",
+          borderRadius: "0 0 $dot25 $dot25",
+          borderWidth: "0 1px 1px 1px",
+          boxSizing: "border-rect",
+          content: "",
+          height: "calc(100% + ($space$xs * 2) - 1px)",
+          position: "absolute",
+          right: "-1px",
+          top: "calc(100%)",
+          width: "calc(75% - $space$xs)",
+        },
       },
     },
   ],
-  "&[data-keycode='Enter']": {
-    borderRadius: "$dot25 $dot25 0 $dot25",
-    position: "relative",
-    overflow: "visible",
-    "&:after": {
-      "--lw": "34%",
-      backgroundColor: "var(--bg)",
-      border: "1px solid var(--bc)",
-      borderRadius: "0 0 $dot25 $dot25",
-      borderWidth: "0 1px 1px 1px",
-      boxSizing: "border-box",
-      content: "",
-      height: "calc(100% + ($space$xs * 2) - 1px)",
-      position: "absolute",
-      right: "-1px",
-      top: "calc(100%)",
-      width: "calc(75% - $space$xs)",
-    },
-  },
 });
 
 type KeyProps = PropsWithChildren<{
+  isKey?: boolean;
   hasBind?: boolean;
   hasHilight?: boolean;
   keycode: KeyIndex;
-}>;
+  shape?: "square" | "rect" | "enter";
+  colspan?: number;
+  rowspan?: number;
+  css?: CSS;
+}> &
+  React.ComponentProps<typeof KeyView>;
 
 const keySizes: Partial<Record<KeyIndex, { c: number; r: number }>> = {
   NumpadAdd: { c: 1, r: 2 },
@@ -105,23 +119,29 @@ const keySizes: Partial<Record<KeyIndex, { c: number; r: number }>> = {
 
 export const Key: FunctionComponent<KeyProps> = ({
   keycode,
+  isKey = false,
   hasHilight = false,
   hasBind = false,
+  shape = "rect",
+  css,
   children,
+  colspan,
+  rowspan,
 }: KeyProps) => {
   const keyStyle = {
-    "--keycolspan": keySizes[keycode]?.c || 1,
-    "--keyrowspan": keySizes[keycode]?.r || 1,
-  } as CSSProperties;
+    $$keyViewColSpan: colspan || shape !== "square" ? keySizes[keycode]?.c || 1 : 1,
+    $$keyViewRowSpan: rowspan || shape !== "square" ? keySizes[keycode]?.r || 1 : 1,
+  } as CSS;
 
   return (
     <KeyView
       hasBind={hasBind}
       hasHilight={hasHilight}
-      isKey={keycode !== ""}
+      isKey={isKey}
       data-keycode={keycode}
-      style={keyStyle}
       hasSmallText={children!.toString().length > 3}
+      shape={shape}
+      css={{ ...keyStyle, ...css }}
     >
       {children}
     </KeyView>

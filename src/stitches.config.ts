@@ -6,14 +6,14 @@ const themeColorAliases = {
   appColor: "$white9",
 
   primaryBg: "$gray6",
-  primaryBgHover: "$gray7",
+  primaryBgHover: "$gray9",
   primaryAcc: "$gray8",
   primaryText: "$gray11",
 
-  secondaryBg: "$yellow6",
-  secondaryBgHover: "$yellow7",
-  secondaryAcc: "$yellow8",
-  secondaryText: "$yellow12",
+  secondaryBg: "$blue6",
+  secondaryBgHover: "$blue9",
+  secondaryAcc: "$blue8",
+  secondaryText: "$blue12",
 };
 
 export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme, config } = createStitches({

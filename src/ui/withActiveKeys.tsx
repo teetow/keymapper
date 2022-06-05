@@ -1,7 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 import keynames, { KeyIndex } from "../lib/keys";
 
-const modifiers = ["Ctrl", "Alt", "Shift"];
+type ModKey = {
+  keyCode: KeyIndex;
+  location: number;
+  getter: (event: KeyboardEvent) => boolean;
+};
+
+// const modifiers = ["ControlLeft", "AltLeft", "ShiftLeft", "ControlRight", "AltRight", "ShiftRight"] as Array<KeyIndex>;
+
+const modifiers = [
+  {
+    keyCode: "ControlLeft",
+    location: 1,
+    getter: (e) => e.ctrlKey,
+  },
+  {
+    keyCode: "AltLeft",
+    location: 1,
+    getter: (e) => e.altKey,
+  },
+  {
+    keyCode: "ShiftLeft",
+    location: 1,
+    getter: (e) => e.shiftKey,
+  },
+] as ModKey[];
+
 const specialKeys: Partial<Record<KeyIndex, Record<number, KeyIndex>>> = {
   Enter: { 0: "Enter", 3: "NumpadEnter" },
 };
@@ -11,7 +36,7 @@ const ambiguousKeys: Partial<Record<KeyIndex, Record<"key" | "actualKey", KeyInd
 };
 
 const disambiguateKey = (e: KeyboardEvent) => {
-  if (e === undefined) return "";
+  if (e === undefined || e.repeat) return "";
 
   if (e.code !== e.key) {
     if (e.code in ambiguousKeys) {
@@ -25,7 +50,16 @@ const disambiguateKey = (e: KeyboardEvent) => {
   return e.code as KeyIndex;
 };
 
-const hasKey = (keyCode: string) => Object.keys(keynames).findIndex((k) => k === keyCode.toLocaleLowerCase()) > -1;
+const hasKey = (keyCode: string) => {
+  return (
+    keyCode &&
+    Object.keys(keynames).findIndex((k) => {
+      return k !== undefined && k === keyCode.toLocaleLowerCase();
+    }) > -1
+  );
+};
+
+const getModifiers = (event: KeyboardEvent) => modifiers.filter((key) => key.getter(event));
 
 const useActiveKeys = (element: HTMLElement) => {
   const ref = useRef<HTMLElement>(element);
@@ -34,6 +68,7 @@ const useActiveKeys = (element: HTMLElement) => {
   const [currentEvent, setCurrentEvent] = useState<KeyboardEvent>();
 
   const handleKeyDown = (e: KeyboardEvent) => {
+    console.log("keydown", e);
     e.preventDefault();
     e.stopPropagation();
     setCurrentEvent(e);
@@ -42,13 +77,11 @@ const useActiveKeys = (element: HTMLElement) => {
   useEffect(() => {
     if (currentEvent === undefined) return;
 
-    let mods = [currentEvent.ctrlKey, currentEvent.altKey, currentEvent.shiftKey]
-      .map((key, index) => (key ? modifiers[index] : ""))
-      .filter((key) => key !== "")
-      .filter(hasKey)
-      .map((k) => `${k}-`) as KeyIndex[];
+    const currentKeys = disambiguateKey(currentEvent);
+    const mods = getModifiers(currentEvent).map((modKey) => modKey.keyCode);
 
-    setActiveKeys((prev) => [...mods, disambiguateKey(currentEvent)]);
+    console.log("mods:", currentKeys, mods, currentEvent.getModifierState("shift"));
+    setActiveKeys((prev) => [...mods, currentKeys]);
   }, [currentEvent]);
 
   useEffect(() => {

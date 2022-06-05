@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# KeyMapper
+## A keyboard shortcut mapping tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### What's this?
 
-## Available Scripts
+Knew you'd ask. So, you ever find yourself struggling to find a comfortable keyboard shortcut for that one feature they didn't bother to map? I have. So I wrote KeyMapper. It does things! More specifically, one thing.
 
-In the project directory, you can run:
+#### Thing it does
 
-### `yarn start`
+* Shows you which keyboard shortcut you're currently pressing
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Oh wow.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Yeah! Check out the [live demo](teetow.com/keymapper)!
 
-### `yarn test`
+### Why, though?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I mean, mostly because I felt like building it, the CSS for drawing the keyboard is kinda neat.
 
-### `yarn build`
+### Fair enough. What can I do with it?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Right now, you just play around with it. Here's what I want to build, though:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Things it should do
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Map shortcut to an action
+* Tells you which keys already have actions
+* Lists all the actions you've already mapped
+* Import and export lists of actions
 
-### `yarn eject`
+### Import from where? To where?
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Honestly, no idea. Kind of a future-me problem. I'd love to let this read and write, say, Blender shortcuts but I wouldn't hold my breath. PR:s welcome, though!
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### I see. Well, nice talking to ya.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Likewise!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Who are you, again?
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I'm Johan. I write code and make [bouncy music](www.soundcloud.com/teetow).
