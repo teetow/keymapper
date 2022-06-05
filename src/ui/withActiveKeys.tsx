@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import keynames, { KeyIndex } from "../lib/keys";
+import { KeyIndex } from "../lib/keys";
 
 type ModKey = {
   keyCode: KeyIndex;
@@ -48,15 +48,6 @@ const disambiguateKey = (e: KeyboardEvent) => {
     return specialKeys[e.code as KeyIndex]![e.location];
   }
   return e.code as KeyIndex;
-};
-
-const hasKey = (keyCode: string) => {
-  return (
-    keyCode &&
-    Object.keys(keynames).findIndex((k) => {
-      return k !== undefined && k === keyCode.toLocaleLowerCase();
-    }) > -1
-  );
 };
 
 const getModifiers = (event: KeyboardEvent) => modifiers.filter((key) => key.getter(event));

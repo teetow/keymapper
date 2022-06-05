@@ -8,6 +8,8 @@ import { CurrentBindView } from "./ui/CurrentBind";
 import KeyMap from "./ui/KeyMap";
 import useActiveKeys from "./ui/withActiveKeys";
 
+const dev = false;
+
 const globalStyles = globalCss({
   body: {
     backgroundColor: "$appBg",
@@ -20,8 +22,8 @@ const globalStyles = globalCss({
 });
 
 const defaultBinds: BindMap = [
-  // { key: "Backspace", function: "Delete item" },
-  // { key: "KeyD", function: "Delete all items", mods: ["ShiftLeft"] },
+  { key: "Backspace", function: "Delete item" },
+  { key: "KeyD", function: "Delete all items", mods: ["ShiftLeft"] },
   // { key: "KeyD", function: "Delete item" },
   // { key: "Enter", function: "Confirm choice" },
 ];
@@ -46,8 +48,12 @@ function App() {
   return (
     <AppView>
       <KeyMap binds={binds} onSetBinds={setBinds} activeKeys={activeKeys} />
-      {/* <CurrentBindView>{activeKeys.map(getKeyCode)}</CurrentBindView>
-      <BindList binds={binds} onSetBinds={setBinds} activeKeys={activeKeys} /> */}
+      {dev && (
+        <>
+          <CurrentBindView>{activeKeys.map(getKeyCode)}</CurrentBindView>
+          <BindList binds={binds} onSetBinds={setBinds} activeKeys={activeKeys} />
+        </>
+      )}
     </AppView>
   );
 }
