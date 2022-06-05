@@ -11,7 +11,7 @@ Knew you'd ask. So, you ever find yourself struggling to find a comfortable keyb
 
 ### Oh wow.
 
-Yeah! Check out the [live demo](teetow.com/keymapper)!
+Yeah! Check out the [live demo](teetow.github.io/keymapper/)!
 
 ### Why, though?
 
