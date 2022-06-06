@@ -7,8 +7,6 @@ type ModKey = {
   getter: (event: KeyboardEvent) => boolean;
 };
 
-// const modifiers = ["ControlLeft", "AltLeft", "ShiftLeft", "ControlRight", "AltRight", "ShiftRight"] as Array<KeyIndex>;
-
 const modifiers = [
   {
     keyCode: "ControlLeft",
@@ -36,7 +34,7 @@ const ambiguousKeys: Partial<Record<KeyIndex, Record<"key" | "actualKey", KeyInd
 };
 
 const disambiguateKey = (e: KeyboardEvent) => {
-  if (e === undefined || e.repeat) return "";
+  if (e === undefined || e.repeat) return "FullEmptySpace";
 
   if (e.code !== e.key) {
     if (e.code in ambiguousKeys) {

@@ -10,8 +10,8 @@ const KeyMapView = styled("div", {
   display: "grid",
   fontSize: "$sm",
   gap: "$xs",
-  gridTemplateColumns: "repeat(48, var(--keysize))",
-  gridTemplateRows: "repeat(14, var(--keysize))",
+  gridTemplateColumns: "repeat(46, var(--keysize))",
+  gridTemplateRows: "repeat(13, var(--keysize))",
   margin: "0 auto",
   padding: "0 3rem",
   placeItems: "stretch",
@@ -33,7 +33,7 @@ const KeyMap: FunctionComponent<Props> = ({ binds, activeKeys }) => {
           keycode={k}
           hasBind={binds.some((b) => b.key === k)}
           hasHilight={activeKeys.includes(k)}
-          isKey={k !== ""}
+          isKey={!["HalfEmptySpace", "FullEmptySpace", "HalfHeightEmptySpace"].includes(k)}
           shape={k === "Enter" ? "enter" : "rect"}
         >
           {keynames[k].caption || ""}

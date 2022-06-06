@@ -97,6 +97,8 @@ type KeyProps = PropsWithChildren<{
   React.ComponentProps<typeof KeyView>;
 
 const keySizes: Partial<Record<KeyIndex, { c: number; r: number }>> = {
+  HalfEmptySpace: { c: 0.5, r: 1 },
+  HalfHeightEmptySpace: { c: 1.0, r: 0.5 },
   NumpadAdd: { c: 1, r: 2 },
   Numpad0: { c: 2, r: 1 },
   NumpadEnter: { c: 1, r: 2 },
