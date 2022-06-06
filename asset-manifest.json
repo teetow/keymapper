@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/keymapper/static/js/main.07ec1e65.js",
+    "main.js": "/keymapper/static/js/main.232e79b3.js",
     "index.html": "/keymapper/index.html",
-    "main.07ec1e65.js.map": "/keymapper/static/js/main.07ec1e65.js.map"
+    "main.232e79b3.js.map": "/keymapper/static/js/main.232e79b3.js.map"
   },
   "entrypoints": [
-    "static/js/main.07ec1e65.js"
+    "static/js/main.232e79b3.js"
   ]
 }
