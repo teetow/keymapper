@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/keymapper/static/js/main.313a5810.js",
+    "index.html": "/keymapper/index.html",
+    "main.313a5810.js.map": "/keymapper/static/js/main.313a5810.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.313a5810.js"
+  ]
+}
