@@ -5,16 +5,13 @@ import { styled } from "../stitches.config";
 import { Key } from "./Key";
 
 const KeyMapView = styled("div", {
-  "--keysize": "1rem",
-  alignItems: "center",
+  alignItems: "stretch",
   display: "grid",
   fontSize: "$sm",
   gap: "$xs",
-  gridTemplateColumns: "repeat(46, var(--keysize))",
-  gridTemplateRows: "repeat(13, var(--keysize))",
-  margin: "0 auto",
-  padding: "0 3rem",
-  placeItems: "stretch",
+  gridTemplateColumns: "repeat(46, 1.5vw)",
+  gridTemplateRows: "repeat(13, $md)",
+  justifyContent: "center",
   userSelect: "none",
 });
 

@@ -57,7 +57,6 @@ const useActiveKeys = (element: HTMLElement) => {
   const [currentEvent, setCurrentEvent] = useState<KeyboardEvent>();
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    console.log("keydown", e);
     e.preventDefault();
     e.stopPropagation();
     setCurrentEvent(e);
@@ -69,7 +68,6 @@ const useActiveKeys = (element: HTMLElement) => {
     const currentKeys = disambiguateKey(currentEvent);
     const mods = getModifiers(currentEvent).map((modKey) => modKey.keyCode);
 
-    console.log("mods:", currentKeys, mods, currentEvent.getModifierState("shift"));
     setActiveKeys((prev) => [...mods, currentKeys]);
   }, [currentEvent]);
 

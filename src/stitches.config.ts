@@ -1,9 +1,9 @@
-import { blueDark, yellowDark, orangeDark, cyanDark, grayDark, greenDark, purpleDark } from "@radix-ui/colors";
+import { blueDark, cyanDark, grayDark, greenDark, orangeDark, purpleDark, whiteA, yellowDark } from "@radix-ui/colors";
 import { createStitches } from "@stitches/react";
 
 const themeColorAliases = {
   appBg: "$gray2",
-  appColor: "$white9",
+  appColor: "$gray12",
 
   primaryBg: "$gray6",
   primaryBgHover: "$gray9",
@@ -26,6 +26,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
       ...blueDark,
       ...purpleDark,
       ...grayDark,
+      ...whiteA,
       ...themeColorAliases,
     },
     fontSizes: {
@@ -34,8 +35,15 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
       sm: ".85rem",
       xs: ".66rem",
     },
-    sizes: {},
+    sizes: {
+      xl: "2.0rem",
+      lg: "1.5rem",
+      md: "1rem",
+      sm: ".75rem",
+      xs: ".5rem",
+    },
     space: {
+      xl: "3rem",
       lg: "2rem",
       md: "1rem",
       sm: "0.5rem",

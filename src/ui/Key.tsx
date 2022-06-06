@@ -140,7 +140,7 @@ export const Key: FunctionComponent<KeyProps> = ({
       hasHilight={hasHilight}
       isKey={isKey}
       data-keycode={keycode}
-      hasSmallText={children!.toString().length > 3}
+      hasSmallText={(children || "").toString().length > 3}
       shape={shape}
       css={{ ...keyStyle, ...css }}
     >

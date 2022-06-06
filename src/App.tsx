@@ -8,7 +8,7 @@ import { CurrentBindView } from "./ui/CurrentBind";
 import KeyMap from "./ui/KeyMap";
 import useActiveKeys from "./ui/withActiveKeys";
 
-const dev = false;
+const dev = process.env.NODE_ENV === "development";
 
 const globalStyles = globalCss({
   body: {
@@ -21,12 +21,15 @@ const globalStyles = globalCss({
   },
 });
 
-const defaultBinds: BindMap = [
-  { key: "Backspace", function: "Delete item" },
-  { key: "KeyD", function: "Delete all items", mods: ["ShiftLeft"] },
-  // { key: "KeyD", function: "Delete item" },
-  // { key: "Enter", function: "Confirm choice" },
-];
+const defaultBinds: BindMap = dev
+  ? [
+      { key: "Backspace", function: "Delete item" },
+      { key: "KeyD", function: "Delete all items", mods: ["ShiftLeft"] },
+      { key: "KeyP", function: "Print", mods: ["ControlLeft"] },
+      { key: "KeyD", function: "Delete item" },
+      { key: "Enter", function: "Confirm choice" },
+    ]
+  : [];
 
 const getKeyCode = (key: KeyIndex) => {
   if (key in keyTable) return keyTable[key].code;

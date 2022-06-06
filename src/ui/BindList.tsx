@@ -7,9 +7,9 @@ import { Key } from "./Key";
 
 const BindListView = styled("div", {
   display: "grid",
-  margin: "3rem",
+  margin: "$xl",
   gridTemplateColumns: "auto 1fr",
-  gap: "$lg",
+  gap: "$md",
 });
 
 const BindKey = ({ children, ...props }: React.ComponentProps<typeof Key>) => (
@@ -18,8 +18,8 @@ const BindKey = ({ children, ...props }: React.ComponentProps<typeof Key>) => (
     css={{
       "--keycolspan": "0.5",
       "--keyrowspan": "0.5",
-      width: "3rem",
-      height: "3rem",
+      width: "$lg",
+      height: "$lg",
     }}
   >
     {children}
