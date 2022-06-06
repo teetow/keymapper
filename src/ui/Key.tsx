@@ -67,7 +67,6 @@ const KeyView = styled("div", {
         position: "relative",
         overflow: "visible",
         "&:after": {
-          "--lw": "34%",
           backgroundColor: "$$keyViewBg",
           border: "1px solid $$keyViewBorderColor",
           borderRadius: "0 0 $dot25 $dot25",
@@ -78,7 +77,7 @@ const KeyView = styled("div", {
           position: "absolute",
           right: "-1px",
           top: "calc(100%)",
-          width: "calc(75% - $space$xs)",
+          left: "calc(25% + 1px + $xs)",
         },
       },
     },
